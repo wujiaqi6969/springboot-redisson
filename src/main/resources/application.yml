@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: springboot-redisson
+  redis:
+    host: 127.0.0.1
+
+
+server:
+  port: 9999
+  servlet:
+    context-path: /my-redisson
