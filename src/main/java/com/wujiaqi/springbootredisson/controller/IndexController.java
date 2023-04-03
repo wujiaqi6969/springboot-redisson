@@ -27,14 +27,14 @@ public class IndexController {
     @LockAnno(value = "IndexController:save", expireTime = 10, waitTime = 5)
     public Result<Void> save() {
         log.warn("IndexController save method is running!");
-        for (int i = 0; i < 10; i++) {
-            log.warn("IndexController save method is wait!");
-            try {
-                TimeUnit.SECONDS.sleep(1);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }
+//        for (int i = 0; i < 3; i++) {
+//            log.warn("IndexController save method is wait!");
+//            try {
+//                TimeUnit.SECONDS.sleep(1);
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
         log.warn("IndexController save method is over!");
         return Result.success();
     }
