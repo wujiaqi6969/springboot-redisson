@@ -4,6 +4,8 @@ import com.wujiaqi.springbootredisson.anno.LockAnno;
 import com.wujiaqi.springbootredisson.anno.LockManager;
 import com.wujiaqi.springbootredisson.common.Result;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,6 +25,9 @@ public class IndexController {
 
     }
 
+    @Autowired
+    private StringRedisTemplate redisTemplate;
+
     @GetMapping("save")
     @LockAnno(value = "IndexController:save", expireTime = 10, waitTime = 5)
     public Result<Void> save() {
@@ -35,6 +40,14 @@ public class IndexController {
 //                throw new RuntimeException(e);
 //            }
 //        }
+        log.warn("IndexController save method is over!");
+        return Result.success();
+    }
+
+    @GetMapping("update")
+    public Result<Void> update() {
+        log.warn("IndexController update method is running!");
+        redisTemplate.opsForHash().put("lock:IndexController:update", "lock:IndexController:update", "value");
         log.warn("IndexController save method is over!");
         return Result.success();
     }
